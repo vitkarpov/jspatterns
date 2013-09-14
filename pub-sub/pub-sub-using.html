@@ -10,13 +10,16 @@
     var scr1, scr2, scr3;
 
     scr1 = pubsub().subscribe('someTopic', function() {
-      console.log('Hi! I was invoked!', arguments);
+      var slice = Array.prototype.slice;
+      console.log('Hi! I was invoked!', slice.call(arguments,1)[0]);
     });
     scr2 = pubsub().subscribe('someTopic', function() {
-      console.log('Hi! I was invoked too!', arguments);
+      var slice = Array.prototype.slice;
+      console.log('Hi! I was invoked too!', slice.call(arguments,1)[0]);
     });
     scr3 = pubsub().subscribe('someAnotherTopic', function() {
-      console.log('Hello!', arguments);
+      var slice = Array.prototype.slice;
+      console.log('Hello!', slice.call(arguments,1)[0]);
     });
 
     pubsub()
