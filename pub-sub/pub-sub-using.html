@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pubsub Using</title>
+</head>
+<body>
+  <script src="pub-sub-implementation.js"></script>
+  <script>
+    var scr1, scr2, scr3;
+
+    scr1 = pubsub().subscribe('someTopic', function() {
+      console.log('Hi! I was invoked!', arguments);
+    });
+    scr2 = pubsub().subscribe('someTopic', function() {
+      console.log('Hi! I was invoked too!', arguments);
+    });
+    scr3 = pubsub().subscribe('someAnotherTopic', function() {
+      console.log('Hello!', arguments);
+    });
+
+    pubsub()
+      //log: Hi! I was invoked too
+      //log: Hi! I was invoked
+      .publish('someTopic', [1, 2, 3])
+      //log: Hello!
+      .publish('someAnotherTopic', [1, 2, 3]);
+
+    pubsub().unsubscribe(scr2);
+
+    //log: Hi! I was invoked
+    pubsub().publish('someTopic');
+  </script>
+</body>
+</html>
