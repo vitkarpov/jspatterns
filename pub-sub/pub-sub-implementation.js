@@ -6,10 +6,10 @@
 
 function pubsub() {
 
-  if ( !pubsub.interface ) {  
-    
-    pubsub.interface = {};
-    
+  if (!pubsub.public) {
+
+    pubsub.public = {};
+
     // using self invoked function
     // for using closure scope
     (function(global) {
@@ -28,7 +28,7 @@ function pubsub() {
 
         // There is no such topic
         // Nothing to do
-        if ( !topics[topic] ) {
+        if (!topics[topic]) {
           return false;
         }
 
@@ -39,10 +39,10 @@ function pubsub() {
         // for the topic
         while (len--) {
           subscribers[len].func( topic, args );
-        }    
+        }
 
         return this;
-      }
+      };
 
       /**
        * Subscribe callback for the topic
@@ -55,13 +55,13 @@ function pubsub() {
 
         // there is no such topic
         // that`s ok: create the new one
-        if ( !topics[topic] ) {
+        if (!topics[topic]) {
           topics[topic] = [];
         }
 
         // unique ID for the topic
         // we will need it for the unsubscribe
-        var token = ( ++subUid ).toString();
+        var token = (++subUid).toString();
 
         // push new subscriber for the topic
         topics[topic].push({
@@ -70,7 +70,7 @@ function pubsub() {
         });
 
         return token;
-      }
+      };
 
       /**
        * Usubscribe clients for the topic
@@ -81,24 +81,24 @@ function pubsub() {
        */
       global.unsubscribe = function( token ) {
         // travers for all topics
-        for ( var t in topics ) {
-          if ( topics[t] ) {
+        for (var t in topics) {
+          if (topics[t]) {
             //travers for all subscribers of the topic
-            for ( var i = 0, j = topics[t].length; i < j; i++ ) {
-              if ( topics[t][i].token === token ) {
-                topics[t].splice( i, 1 );
+            for (var i = 0, j = topics[t].length; i < j; i++) {
+              if (topics[t][i].token === token) {
+                topics[t].splice(i, 1);
                 return token;
               }
             }
           }
         }
         return this;
-      }
+      };
 
       return global;
 
-    }(pubsub.interface));
+    }(pubsub.public));
   }
 
-  return pubsub.interface;
+  return pubsub.public;
 }
