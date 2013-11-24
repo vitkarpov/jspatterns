@@ -1,0 +1,10 @@
+{
+    "name": "js-patterns",
+    "version": "0.1.0",
+    "dependencies": {
+        "grunt-mocha": "~0.2"
+    },
+    "devDependencies": {
+        "grunt": "~0.4"
+    }
+}

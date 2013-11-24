@@ -33,12 +33,13 @@ function pubsub() {
         }
 
         var subscribers = topics[topic],
-            len = subscribers ? subscribers.length : 0;
+            len = subscribers ? subscribers.length : 0,
+            i = len;
 
         // invokes callback for all subscribers
         // for the topic
-        while (len--) {
-          subscribers[len].func( topic, args );
+        while (i--) {
+          subscribers[len - i - 1].func( topic, args );
         }
 
         return this;
